@@ -24,7 +24,7 @@ class Operation(Base):
     is_income = Column(Boolean)
 
 
-# Base.metadata.create_all(engine)
+#Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
