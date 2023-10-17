@@ -46,7 +46,7 @@ def detect_variables(text: str, owner_id: int) -> (bool, db.Operation):
             return False, None
         return True, db.Operation(
             owner=owner_id,
-            description=function_args['description'].lower(), amount=function_args['amount'],
+            description=function_args['description'].lower(), amount=abs(function_args['amount']),
             is_income=bool(int(function_args['is_income'])), date=datetime.datetime.now().date())
     else:
         return False, None
