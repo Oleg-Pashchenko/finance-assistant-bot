@@ -34,7 +34,7 @@ def index_page(chat_id):
     current_month = current_datetime.month
     current_day = current_datetime.day
 
-    records = db.session.query(db.Operation).all()
+    records = db.session.query(db.Operation).filter(db.Operation.owner == chat_id).all()
     current_income_sum, current_expenses_sum, previous_income_sum, previous_expenses_sum = 0, 0, 0, 0
 
     for record in records:
