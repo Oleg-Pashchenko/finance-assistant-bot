@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, Date, Boolean
+from sqlalchemy import create_engine, Column, Integer, BigInteger, String, Date, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
@@ -17,6 +17,7 @@ Base = declarative_base()
 class Operation(Base):
     __tablename__ = 'operations'
     id = Column(Integer, primary_key=True)
+    owner = Column(BigInteger)
     description = Column(String)
     amount = Column(Integer)
     date = Column(Date)

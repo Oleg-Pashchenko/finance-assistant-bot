@@ -21,17 +21,19 @@ dp = Dispatcher()
 async def start_command_hander(message: types.Message):
     await message.answer("Добро пожаловать в Fine! 😊\n\nЗдесь ты сможешь с легкостью контролировать свои финансы "
                          "и поднимать свои накопления на новый уровень. 💰🚀\n\nВот что ты можешь сделать:"
-                         "\n- Добавить или удалить доход 💵💸\n- Добавить или удалить расход "
+                         "\n- Добавить или удалить доход 💵💸\n- Добавить или удалить расход\n- Просмотреть статистику "
+                         f"(http://olegpash.ru/{message.chat.id})"
                          "💳💰\n\nПриятного использования! 🌟")
 
 
 @dp.message()
 async def all_messages_handler(message: types.Message):
-    detection_status, operation = openai_connector.detect_variables(message.text)
+    detection_status, operation = openai_connector.detect_variables(message.text, message.chat.id)
     if not detection_status:
         return await message.answer("Не удалось распознать сообщение. 😕\n\nПожалуйста, повторите попытку! 🔄")
     db.save_obj(operation)
-    await message.answer(f'Спасибо. 😃 Данные успешно учтены!')
+    await message.answer(f'Спасибо. 😃 Данные успешно учтены!\n\nОписание: {operation.description}\n'
+                         f'Сумма: {operation.amount}\nТип: {"Доход" if operation.is_income else "Расход"}')
 
 
 async def main() -> None:
