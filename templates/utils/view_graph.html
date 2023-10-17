@@ -1,0 +1,31 @@
+
+    <div class="col-md-12">
+        <canvas id="barChart"</canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // JavaScript for creating the bar chart using Chart.js
+    var ctx = document.getElementById('barChart').getContext('2d');
+    var labels = {{ labels | tojson | safe }};
+    var values = {{ values | tojson | safe }};
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '{{ label | safe }}',
+                data: values,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
