@@ -22,7 +22,7 @@ def index_page(chat_id):
     table1_columns = ["Дата", "Тип", 'Описание', 'Сколько (в ₽)']  # Заголовки колонок для таблицы 1
 
     last_5_records = db.session.query(db.Operation).filter(db.Operation.owner == chat_id).order_by(
-        desc(db.Operation.date)).limit(5).all()
+        desc(db.Operation.date)).limit(5)
     last_5_rows = []
     for i in last_5_records:
         last_5_rows.append([i.date, 'Доход' if i.is_income else 'Расход', i.description, i.amount])
